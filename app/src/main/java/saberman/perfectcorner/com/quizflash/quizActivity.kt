@@ -30,7 +30,7 @@ class quizActivity : AppCompatActivity() {
             map.put(flash[0], flash[1])
         }
 
-        var usedKeys: ArrayList<String> = ArrayList<String>()
+        var usedKeys: ArrayList<String> = ArrayList<String>() //List containing the keys for all correctly answered sets
 
         createQuestion(map, usedKeys)
 
@@ -49,7 +49,6 @@ class quizActivity : AppCompatActivity() {
 
 
         var subButton = findViewById<Button>(R.id.submitButton)
-
 
 
         var questionSet:MutableSet<String> = flashCards.keys
@@ -71,24 +70,23 @@ class quizActivity : AppCompatActivity() {
 
 
         //populate the radio buttons
-
         var tempAnswers:HashSet<String?> = HashSet<String?>()
 
 
         tempAnswers.add(flashCards.get(questionKey))
 
 
-1
+        //continue to pick random keys and add them to the possible answers list
         while(tempAnswers.size < 4 ){
             randIndex = (Math.random() * questionList.size).toInt()
             tempAnswers.add(flashCards.get(questionList.get(randIndex)))
         }
 
-
+        //Convert the set to a list so that random indexes can be selected for populating the radio buttons
         var tempAnswersList:ArrayList<String> = ArrayList<String>(tempAnswers)
         randIndex =  (Math.random() * tempAnswersList.size).toInt()
 
-
+        //Code to set each radio button to a random answer
         optionOne.text = tempAnswersList.get(randIndex)
         tempAnswersList.remove(tempAnswersList.get(randIndex))
 
@@ -102,13 +100,16 @@ class quizActivity : AppCompatActivity() {
 
         optionFour.text = tempAnswersList.get(0)
 
+        //Display the current key as the question text
         questionDisplay.text = questionKey;
 
+        //Create a handler to call create question every 10 seconds
         val mHandler = Handler()
         mHandler.postDelayed({
             createQuestion(flashCards, usedKeys)
         }, 10000L)
 
+        //Code to display a countdown timer
         val timeDisplay = findViewById<TextView>(R.id.timerDisplay)
         timeDisplay.text = 10.toString()
         val handler = Handler()
@@ -125,20 +126,20 @@ class quizActivity : AppCompatActivity() {
         }
         // trigger first time
         handler.post(runnable)
-
+        //Code for Submit Button
         subButton.setOnClickListener(){
             val selectedButton = findViewById<RadioButton>(optionGroup.checkedRadioButtonId)
             if(selectedButton.text.equals(flashCards[questionKey])){
                 //Toast.makeText(this@quizActivity, "Correct!", Toast.LENGTH_SHORT).show()
-                usedKeys.add(questionKey)
+                usedKeys.add(questionKey) //Answered question correctly, add the current key to usedKeys
                 Toast.makeText(this@quizActivity, "C", Toast.LENGTH_LONG).show()
             }else{
                 //Toast.makeText(this@quizActivity, "Wrong! Correct Answer: " + correctAnswer + "", Toast.LENGTH_SHORT ).show()
                 Toast.makeText(this@quizActivity, "W " + questionKey + " " + flashCards[questionKey], Toast.LENGTH_LONG).show()
             }
-            if (usedKeys.size != flashCards.size) {
+            if (usedKeys.size != flashCards.size) { //Check to see if all keys have been exhausted
                 createQuestion(flashCards, usedKeys)
-            } else {
+            } else { //All questions answered correctly, go back to the flash card select screen
                 usedKeys.clear()
                 Toast.makeText(this@quizActivity, "Twue", Toast.LENGTH_SHORT).show()
                 val intentBack = Intent(this, flashCardSelect::class.java) //create intent to go to flashcard info
