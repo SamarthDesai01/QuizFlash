@@ -49,19 +49,31 @@ class LoginScreen : AppCompatActivity() {
                                     Toast.makeText(this@LoginScreen, "Welcome " + userName.text + "!", Toast.LENGTH_SHORT).show()
 
                                     val intent = Intent(this, flashCardSelect::class.java) //create intent to go to the next activity
-                                    val username:CharSequence = userName.text //move textview into username
                                     intent.putExtra("flashMap", flashMap)
 
                                     startActivity(intent)
                                 },
                                 Response.ErrorListener {
                                     Toast.makeText(this@LoginScreen, "That didn't work!", Toast.LENGTH_SHORT).show()
-                                })
 
+                                })
                         queue.add(flashRequest)
                     },
                     Response.ErrorListener {
                         Toast.makeText(this@LoginScreen, "That didn't work!", Toast.LENGTH_SHORT).show()
+                        //TODO: REMOVE ONCE CRASH ERROR IS FIXED, SIMPLY TO TEST NEXT SCREEN
+                        val tempIntent = Intent(this, flashCardSelect::class.java)
+                        //Hardcoded map set to test next screen
+                        var tempMap =  HashMap<String,String>()
+                        tempMap.put("Keep", "it up!")
+                        tempMap.put("Nice",  "work!")
+                        tempMap.put("Samarth", "Desai")
+                        tempMap.put("12", "13")
+                        tempMap.put("14", "15")
+
+                        tempIntent.putExtra("tempMap", tempMap)
+
+                        startActivity(tempIntent)
                     })
 
             // Add the request to the RequestQueue.
@@ -92,9 +104,6 @@ class LoginScreen : AppCompatActivity() {
             // Permission has already been granted
             getQuizlet()
         }
-
-        val loginButton = findViewById<Button>(R.id.enterUserButton) //button to take you to th next screen
-        val userName = findViewById<TextView>(R.id.quizletUserName) //text view that stores the username
     }
 
 

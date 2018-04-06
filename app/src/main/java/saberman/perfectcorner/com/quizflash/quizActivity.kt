@@ -7,7 +7,6 @@ import android.os.Handler
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.*
-import kotlinx.android.synthetic.main.app_bar_flash_card_select.*
 import java.io.Serializable
 import java.util.*
 
