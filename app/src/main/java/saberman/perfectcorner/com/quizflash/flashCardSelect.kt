@@ -20,7 +20,7 @@ class flashCardSelect : AppCompatActivity() {
         val extras = intent.extras
 
         //Final formatted map that contains all flashcards
-        val map: HashMap<String, String> = HashMap<String, String>()
+        var map: HashMap<String, String> = HashMap<String, String>()
 
         //TODO: REMOVE EXTRAS CHECKING CODE, ONLY HERE TO TEST UNTIL CRASH ERROR IS FIXED
         //Checks which flashcards sets were passed in (Quizlet or Hardcoded) and reformats to a properly formatted map
@@ -49,7 +49,6 @@ class flashCardSelect : AppCompatActivity() {
                 var flash: List<String> = str.split("=")
                 map.put(flash[0], flash[1])
             }
-
         }
 
         outputText.text = map.toString()
