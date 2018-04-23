@@ -61,6 +61,7 @@ class LoginScreen : AppCompatActivity() {
                     },
                     Response.ErrorListener {
                         Toast.makeText(this@LoginScreen, "That didn't work!", Toast.LENGTH_SHORT).show()
+                        /**
                         //TODO: REMOVE ONCE CRASH ERROR IS FIXED, SIMPLY TO TEST NEXT SCREEN
                         val tempIntent = Intent(this, flashCardSelect::class.java)
                         //Hardcoded map set to test next screen
@@ -74,6 +75,7 @@ class LoginScreen : AppCompatActivity() {
                         tempIntent.putExtra("tempMap", tempMap)
 
                         startActivity(tempIntent)
+                        **/
                     })
 
             // Add the request to the RequestQueue.
