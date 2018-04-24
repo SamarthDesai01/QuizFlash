@@ -24,8 +24,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".settingsActivity"
-            android:label="@string/action_settings"></activity>
-        <activity android:name=".quizActivity"></activity>
+            android:label="@string/action_settings" />
+        <activity android:name=".quizActivity" />
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.os.Handler
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.*
-import kotlinx.android.synthetic.main.app_bar_flash_card_select.*
 import java.io.Serializable
 import java.util.*
 
@@ -33,9 +32,6 @@ class quizActivity : AppCompatActivity() {
         var usedKeys: ArrayList<String> = ArrayList<String>() //List containing the keys for all correctly answered sets
 
         createQuestion(map, usedKeys)
-
-
-
     }
 
     fun createQuestion(flashCards: HashMap<String, String>, usedKeys: ArrayList<String>){
@@ -54,20 +50,17 @@ class quizActivity : AppCompatActivity() {
         var questionSet:MutableSet<String> = flashCards.keys
         var questionList: ArrayList<String> = ArrayList<String>(questionSet)
 
-        //pick a random question
+        //Pick a random question from our term list
         var randIndex = (Math.random() * questionList.size).toInt()
 
+        //Get the correct answer to our question
         var questionKey = questionList.get(randIndex)
 
+        //If our current questionKey is already being used, find an unused one
         while(usedKeys.contains(questionKey)){
             randIndex = (Math.random() * questionList.size).toInt()
             questionKey = questionList.get(randIndex)
         }
-
-        //Add this as a used keys
-        //usedKeys.add(questionKey)
-
-
 
         //populate the radio buttons
         var tempAnswers:HashSet<String?> = HashSet<String?>()
@@ -146,14 +139,6 @@ class quizActivity : AppCompatActivity() {
                 intentBack.putExtra("flashMap", flashCards)
                 startActivity(intentBack)
             }
-
-
         }
-
-
-
-
     }
-
-
 }
